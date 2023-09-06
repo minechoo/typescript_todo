@@ -33,13 +33,15 @@ function addListItem(task) {
 	//li, input 엘리먼트 노드 생성
 	const item = document.createElement('li');
 	const checkbox = document.createElement('input');
+
 	//input 노드에 checkbox
 	checkbox.type = 'checkbox';
 	//동적으로 생성되는 체크박스요소에 아예 이벤트핸들러까지 연결해서 생성
 	//이벤트 위임을 하지 않아도 동적인요소에 이벤트 연결하는 방법
 	checkbox.addEventListener('change', () => {
-		tasks.complete = checkbox.checked;
+		task.complete = checkbox.checked;
 		console.log(tasks);
+		item.style.textDecoration = task.complete ? 'line-through' : 'none';
 	});
 	//li노드에 자식으로 checkbox, 인수로 받은 객체의 할일내용 추가
 	item.append(checkbox, task.title);
