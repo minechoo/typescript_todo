@@ -7,6 +7,7 @@ const list = document.querySelector('#list');
 //localStrogae에 null값이 반환되는 순간 배열을 문자화해서 대신 들어가도록 하면
 //parse메서드 안쪽에는 문자값이 인수로 전달되서 오류를 피할 수 있음
 let tasks = JSON.parse(localStorage.getItem('TASKS') || '[]');
+//map으로 반복도는 배열자체에 Task타입의 배열로 지정했기 때문에 굳이 map파라미터에 타입지정 불필요
 tasks.map((task) => addListItem(task));
 //해당변수는 처음 스크립트가 로드될때 아직 돔이 담기지 않아 담기지 않았기 때문에 초기에 undefined가 들어감
 //form 타입을 HTML노드 형태로 지정했기 때문에 해당 값이 없을때에는 무시하고 넘어가도록 optional chaing처리
@@ -19,6 +20,8 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', (e) 
         title: (input === null || input === void 0 ? void 0 : input.value) || '',
         createdAt: new Date(),
     };
+    //input?.value = '' ; 해당구문은 옵셔녈 체이닝과 대입연산자를 하나의 표현식으로 처리 불가능하기 떄문에
+    //아래와 같이 코드 변경
     input && (input.value = '');
     tasks = [newTask, ...tasks];
     list && (list.innerHTML = '');
